@@ -6,6 +6,6 @@ I used html files of the 100 best rated movies, and use jupyter notebook to crea
 * Movie title
 * Genre
 * Director
-* Lengths (mins)
+* runtime (mins)
 
 The html and ipynd files represent the current status of this project, what is not finished yet. I will update it in the following days. 
