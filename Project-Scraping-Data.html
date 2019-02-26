@@ -16348,7 +16348,7 @@ Therefor we have to find the title tag</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -16397,7 +16397,7 @@ Therefor we have to find the title tag</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -16430,6 +16430,608 @@ Therefor we have to find the title tag</p>
 <pre>95
 </pre>
 </div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our last task is to convert our list of dictionaries df_list to a pandas dataframe. Don't forget to import the pandas library. And we also specify the column order</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">folder</span> <span class="o">=</span> <span class="s1">&#39;data/rt_html/&#39;</span>
+<span class="k">for</span> <span class="n">movie_html</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">movie_html</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;lxml&#39;</span><span class="p">)</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s1">&#39; - Rotten Tomatoes&#39;</span><span class="p">)]</span>
+        <span class="n">genre</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">)[</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">director</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">)[</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+        <span class="n">runtime</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">)[</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">)[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()[:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s1">&#39; minutes&#39;</span><span class="p">)]</span>
+        <span class="n">df_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+                        <span class="s1">&#39;genre&#39;</span><span class="p">:</span> <span class="n">genre</span><span class="p">,</span>
+                        <span class="s1">&#39;director&#39;</span><span class="p">:</span> <span class="n">director</span><span class="p">,</span>
+                        <span class="s1">&#39;runtime&#39;</span><span class="p">:</span> <span class="n">runtime</span><span class="p">})</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;director&#39;</span><span class="p">,</span> <span class="s1">&#39;runtime&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-17-e323994bbe4f&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">      7</span>         genre <span class="ansi-yellow-intense-fg ansi-bold">=</span> soup<span class="ansi-yellow-intense-fg ansi-bold">.</span>find_all<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;ul&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">14</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>find_all<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;a&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_text<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>strip<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">      8</span>         director <span class="ansi-yellow-intense-fg ansi-bold">=</span> soup<span class="ansi-yellow-intense-fg ansi-bold">.</span>find_all<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;ul&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">14</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>find_all<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;li&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">2</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>find<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;a&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_text<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 9</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>runtime <span class="ansi-yellow-intense-fg ansi-bold">=</span> soup<span class="ansi-yellow-intense-fg ansi-bold">.</span>find_all<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;ul&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">14</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>find_all<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;li&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">6</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>find<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;time&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>get_text<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>strip<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">:</span><span class="ansi-yellow-intense-fg ansi-bold">-</span>len<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39; minutes&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
+<span class="ansi-green-fg">     10</span>         df_list.append({&#39;title&#39;: title,
+<span class="ansi-green-fg">     11</span>                         <span class="ansi-blue-intense-fg ansi-bold">&#39;genre&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">:</span> genre<span class="ansi-yellow-intense-fg ansi-bold">,</span>
+
+<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>: &#39;NoneType&#39; object has no attribute &#39;get_text&#39;</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>How can we handle this error?<br>
+<a href="https://stackoverflow.com/questions/28387221/attributeerror-nonetype-object-has-no-attribute-get-text">https://stackoverflow.com/questions/28387221/attributeerror-nonetype-object-has-no-attribute-get-text</a><br>
+We can use the "try &amp; except" method to solve the problem.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">folder</span> <span class="o">=</span> <span class="s1">&#39;data/rt_html/&#39;</span>
+<span class="k">for</span> <span class="n">movie_html</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">movie_html</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;lxml&#39;</span><span class="p">)</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s1">&#39; - Rotten Tomatoes&#39;</span><span class="p">)]</span>
+        <span class="n">genre</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">)[</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">director</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">)[</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">runtime</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">)[</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">)[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()[:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s1">&#39; minutes&#39;</span><span class="p">)]</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">runtime</span> <span class="o">=</span> <span class="s1">&#39;no runtime&#39;</span>
+        <span class="n">df_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+                        <span class="s1">&#39;genre&#39;</span><span class="p">:</span> <span class="n">genre</span><span class="p">,</span>
+                        <span class="s1">&#39;director&#39;</span><span class="p">:</span> <span class="n">director</span><span class="p">,</span>
+                        <span class="s1">&#39;runtime&#39;</span><span class="p">:</span> <span class="n">runtime</span><span class="p">})</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;director&#39;</span><span class="p">,</span> <span class="s1">&#39;runtime&#39;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[16]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+      <th>genre</th>
+      <th>director</th>
+      <th>runtime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>12 Angry Men (Twelve Angry Men) (1957)</td>
+      <td>Classics</td>
+      <td>Sidney Lumet</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>The 39 Steps (1935)</td>
+      <td>Action &amp; Adventure</td>
+      <td>Alfred Hitchcock</td>
+      <td>87</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>The Adventures of Robin Hood (1938)</td>
+      <td>Action &amp; Adventure</td>
+      <td>Michael Curtiz</td>
+      <td>102</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>All About Eve (1950)</td>
+      <td>Classics</td>
+      <td>Joseph L. Mankiewicz</td>
+      <td>138</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>All Quiet on the Western Front (1930)</td>
+      <td>Classics</td>
+      <td>Lewis Milestone</td>
+      <td>134</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Casablanca (1942)</td>
+      <td>Classics</td>
+      <td>Michael Curtiz</td>
+      <td>102</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Frankenstein (1931)</td>
+      <td>Classics</td>
+      <td>James Whale</td>
+      <td>70</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>King Kong (1933)</td>
+      <td>Action &amp; Adventure</td>
+      <td>Ernest B. Schoedsack</td>
+      <td>103</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Laura (1944)</td>
+      <td>Classics</td>
+      <td>Otto Preminger</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>M (1931)</td>
+      <td>Art House &amp; International</td>
+      <td>Fritz Lang</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>The Maltese Falcon (1941)</td>
+      <td>Drama</td>
+      <td>John Huston</td>
+      <td>101</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Metropolis (1927)</td>
+      <td>Action &amp; Adventure</td>
+      <td>Fritz Lang</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Rear Window (1954)</td>
+      <td>Classics</td>
+      <td>Alfred Hitchcock</td>
+      <td>115</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Rebecca (1940)</td>
+      <td>Classics</td>
+      <td>Alfred Hitchcock</td>
+      <td>130</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>A Streetcar Named Desire (1951)</td>
+      <td>Classics</td>
+      <td>Elia Kazan</td>
+      <td>122</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Touch of Evil (1958)</td>
+      <td>Classics</td>
+      <td>Orson Welles</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>High Noon (1952)</td>
+      <td>Mystery &amp; Suspense</td>
+      <td>Fred Zinnemann</td>
+      <td>85</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>Snow White and the Seven Dwarfs (1937)</td>
+      <td>Animation</td>
+      <td>David Hand</td>
+      <td>83</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>12 Years a Slave (2013)</td>
+      <td>Drama</td>
+      <td>Steve McQueen (III)</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>The 400 Blows (Les Quatre cents coups) (1959)</td>
+      <td>Art House &amp; International</td>
+      <td>François Truffaut</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>Alien (1979)</td>
+      <td>Drama</td>
+      <td>Ridley Scott</td>
+      <td>117</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>Apocalypse Now (1979)</td>
+      <td>Action &amp; Adventure</td>
+      <td>Francis Ford Coppola</td>
+      <td>153</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>Argo (2012)</td>
+      <td>Drama</td>
+      <td>Ben Affleck</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>Army of Shadows (L'Armée des ombres) (1969)</td>
+      <td>Art House &amp; International</td>
+      <td>Jean-Pierre Melville</td>
+      <td>140</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>Arrival (2016)</td>
+      <td>Drama</td>
+      <td>Denis Villeneuve</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>Baby Driver (2017)</td>
+      <td>Action &amp; Adventure</td>
+      <td>Edgar Wright</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>Battleship Potemkin (1925)</td>
+      <td>Art House &amp; International</td>
+      <td>Sergei M. Eisenstein</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>A Hard Day's Night (1964)</td>
+      <td>Classics</td>
+      <td>Richard Lester</td>
+      <td>87</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>Bicycle Thieves (Ladri di biciclette) (1949)</td>
+      <td>Drama</td>
+      <td>Vittorio De Sica</td>
+      <td>90</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>Boyhood (2014)</td>
+      <td>Drama</td>
+      <td>Richard Linklater</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>70</th>
+      <td>Selma (2015)</td>
+      <td>Drama</td>
+      <td>Ava DuVernay</td>
+      <td>127</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>Seven Samurai (Shichinin no Samurai) (1956)</td>
+      <td>Action &amp; Adventure</td>
+      <td>Akira Kurosawa</td>
+      <td>204</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>Singin' in the Rain (1952)</td>
+      <td>Classics</td>
+      <td>Stanley Donen</td>
+      <td>102</td>
+    </tr>
+    <tr>
+      <th>73</th>
+      <td>Skyfall (2012)</td>
+      <td>Action &amp; Adventure</td>
+      <td>Sam Mendes</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>74</th>
+      <td>Spotlight (2015)</td>
+      <td>Drama</td>
+      <td>Tom McCarthy</td>
+      <td>129</td>
+    </tr>
+    <tr>
+      <th>75</th>
+      <td>Star Trek (2009)</td>
+      <td>Action &amp; Adventure</td>
+      <td>J.J. Abrams</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>76</th>
+      <td>Star Wars: Episode VII - The Force Awakens (2015)</td>
+      <td>Action &amp; Adventure</td>
+      <td>J.J. Abrams</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>77</th>
+      <td>Sunset Boulevard (1950)</td>
+      <td>Classics</td>
+      <td>Billy Wilder</td>
+      <td>111</td>
+    </tr>
+    <tr>
+      <th>78</th>
+      <td>Taxi Driver (1976)</td>
+      <td>Drama</td>
+      <td>Martin Scorsese</td>
+      <td>112</td>
+    </tr>
+    <tr>
+      <th>79</th>
+      <td>The Babadook (2014)</td>
+      <td>Drama</td>
+      <td>Jennifer Kent</td>
+      <td>94</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>The Battle of Algiers (La Battaglia di Algeri)...</td>
+      <td>Art House &amp; International</td>
+      <td>Gillo Pontecorvo</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>81</th>
+      <td>The Big Sick (2017)</td>
+      <td>Comedy</td>
+      <td>Michael Showalter</td>
+      <td>119</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <td>The Cabinet of Dr. Caligari (Das Cabinet des D...</td>
+      <td>Art House &amp; International</td>
+      <td>Robert Wiene</td>
+      <td>52</td>
+    </tr>
+    <tr>
+      <th>83</th>
+      <td>The Conformist (1970)</td>
+      <td>Art House &amp; International</td>
+      <td>Bernardo Bertolucci</td>
+      <td>115</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <td>The Dark Knight (2008)</td>
+      <td>Action &amp; Adventure</td>
+      <td>Christopher Nolan</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>85</th>
+      <td>The Good, the Bad and the Ugly (1966)</td>
+      <td>Western</td>
+      <td>Sergio Leone</td>
+      <td>161</td>
+    </tr>
+    <tr>
+      <th>86</th>
+      <td>The Jungle Book (2016)</td>
+      <td>Action &amp; Adventure</td>
+      <td>Jon Favreau</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>87</th>
+      <td>The Third Man (1949)</td>
+      <td>Classics</td>
+      <td>Carol Reed</td>
+      <td>104</td>
+    </tr>
+    <tr>
+      <th>88</th>
+      <td>The Wizard of Oz (1939)</td>
+      <td>Classics</td>
+      <td>King Vidor</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>89</th>
+      <td>The Wrestler (2008)</td>
+      <td>Drama</td>
+      <td>Darren Aronofsky</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>90</th>
+      <td>Tokyo Story (Tôkyô monogatari) (1953)</td>
+      <td>Art House &amp; International</td>
+      <td>Yasujiro Ozu</td>
+      <td>134</td>
+    </tr>
+    <tr>
+      <th>91</th>
+      <td>Toy Story (1995)</td>
+      <td>Animation</td>
+      <td>John Lasseter</td>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>92</th>
+      <td>Toy Story 2 (1999)</td>
+      <td>Animation</td>
+      <td>Ash Brannon</td>
+      <td>92</td>
+    </tr>
+    <tr>
+      <th>93</th>
+      <td>Toy Story 3 (2010)</td>
+      <td>Animation</td>
+      <td>Lee Unkrich</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>94</th>
+      <td>The Treasure of the Sierra Madre (1948)</td>
+      <td>Action &amp; Adventure</td>
+      <td>John Huston</td>
+      <td>126</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>Up (2009)</td>
+      <td>Action &amp; Adventure</td>
+      <td>Pete Docter</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>Vertigo (1958)</td>
+      <td>Classics</td>
+      <td>Alfred Hitchcock</td>
+      <td>128</td>
+    </tr>
+    <tr>
+      <th>97</th>
+      <td>The Wages of Fear (1953)</td>
+      <td>Art House &amp; International</td>
+      <td>Henri-Georges Clouzot</td>
+      <td>138</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>Wonder Woman (2017)</td>
+      <td>Action &amp; Adventure</td>
+      <td>Patty Jenkins</td>
+      <td>no runtime</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>Zootopia (2016)</td>
+      <td>Action &amp; Adventure</td>
+      <td>Byron Howard</td>
+      <td>no runtime</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 4 columns</p>
+</div>
+</div>
+
 </div>
 
 </div>
