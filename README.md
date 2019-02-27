@@ -11,3 +11,5 @@ I used html files of the 100 best rated movies, and use jupyter notebook to crea
 The html and ipynd files represent the status of this project. On 2019-02-26, I created the data frame with the above described information. 
 
 On 2019-02-27, I got the idea that I can also scrape data directly from the page rottentomatoes.com, this section is quiet interesting in this regard： [Top 100 Movies of 2018](https://www.rottentomatoes.com/top/bestofrt/?year=2018)
+
+2019-02-28: At first I will create a list of links to these 100 movies.
