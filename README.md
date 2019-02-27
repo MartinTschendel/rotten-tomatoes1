@@ -8,4 +8,4 @@ I used html files of the 100 best rated movies, and use jupyter notebook to crea
 * Director (retrieved on 2019-02-24)
 * runtime (mins) (retrieved on 2019-02-24)
 
-The html and ipynd files represent the status of this project. On 2019-02-26, I created the data frame with the above dexcribed information. 
+The html and ipynd files represent the status of this project. On 2019-02-26, I created the data frame with the above described information. 
