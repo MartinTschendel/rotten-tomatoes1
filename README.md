@@ -1,4 +1,4 @@
-# rotten-tomatoes
+# rotten-tomatoes1
 Scrape data with BeautifulSoup from rottentomatoes.com
 
 Based on a data gathering task at udacity.com, I try to practice data scraping skills with BeautifulSoup.<br>
@@ -17,3 +17,5 @@ On 2019-02-27, I got the idea that I can also scrape data directly from the page
 2019-03-01: I opened another branch (direct-scrape) in this repo to try out a direct scrape from the internet
 
 2019-03-01: I uploaded ipynd and html documents: first step: get access to the content of [Top 100 Movies of 2018](https://www.rottentomatoes.com/top/bestofrt/?year=2018) 
+
+
