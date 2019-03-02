@@ -18,4 +18,4 @@ On 2019-02-27, I got the idea that I can also scrape data directly from the page
 
 2019-03-01: I uploaded ipynd and html documents: first step: get access to the content of [Top 100 Movies of 2018](https://www.rottentomatoes.com/top/bestofrt/?year=2018) 
 
-
+2019-03-02: For the purpose of clean structures, I decided to create a new repo with the name "rotten-tomatoes2". In the repo "rotten-tomatoes2", I will show how to scrape data directly from the page rottentomatoes.com
